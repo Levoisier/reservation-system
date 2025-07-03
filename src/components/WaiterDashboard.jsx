@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Lock, LogIn, Users, LogOut, RefreshCw, Shield, Activity } from 'lucide-react';
 import { db, ref, push, set } from '../firebase';
+import { fetchTables, checkAvailability } from '../api';
+import { useEffect } from 'react';
+
 
 
 const WaiterDashboard = () => {
@@ -11,18 +14,38 @@ const WaiterDashboard = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [selectedTable, setSelectedTable] = useState(null);
   const [showStatusMenu, setShowStatusMenu] = useState(false);
+  const [loadingTables, setLoadingTables] = useState(false);
+  const [error, setError] = useState(null);
+
 
   // Table data with status management
-  const [tables, setTables] = useState([
-    { id: 1, x: 120, y: 140, status: 'free', guests: 0, time: null },
-    { id: 2, x: 280, y: 140, status: 'occupied', guests: 4, time: '7:30 PM' },
-    { id: 3, x: 440, y: 140, status: 'reserved', guests: 2, time: '8:00 PM' },
-    { id: 4, x: 600, y: 140, status: 'free', guests: 0, time: null },
-    { id: 5, x: 120, y: 240, status: 'occupied', guests: 3, time: '6:45 PM' },
-    { id: 6, x: 280, y: 240, status: 'free', guests: 0, time: null },
-    { id: 7, x: 440, y: 240, status: 'reserved', guests: 6, time: '8:30 PM' },
-    { id: 8, x: 600, y: 240, status: 'occupied', guests: 2, time: '7:15 PM' },
-  ]);
+  const [tables, setTables] = useState([]);
+    //{ id: 1, x: 120, y: 140, status: 'free', guests: 0, time: null },
+    //{ id: 2, x: 280, y: 140, status: 'occupied', guests: 4, time: '7:30 PM' },
+    //{ id: 3, x: 440, y: 140, status: 'reserved', guests: 2, time: '8:00 PM' },
+    //{ id: 4, x: 600, y: 140, status: 'free', guests: 0, time: null },
+    //{ id: 5, x: 120, y: 240, status: 'occupied', guests: 3, time: '6:45 PM' },
+    //{ id: 6, x: 280, y: 240, status: 'free', guests: 0, time: null },
+    //{ id: 7, x: 440, y: 240, status: 'reserved', guests: 6, time: '8:30 PM' },
+    //{ id: 8, x: 600, y: 240, status: 'occupied', guests: 2, time: '7:15 PM' },
+
+useEffect(() => {
+  const loadTables = async () => {
+    setLoadingTables(true);
+    setError(null);
+    try {
+      const data = await fetchTables(); // esto lee el JSON estático
+      setTables(data);                  // actualiza las mesas
+    } catch (err) {
+      setError('Error al cargar las mesas.');
+      console.error(err);
+    } finally {
+      setLoadingTables(false);
+    }
+  };
+
+  if (isLoggedIn) loadTables();
+}, [isLoggedIn]);
 
   const statusColors = {
     free: { fill: '#10b981', stroke: '#059669', text: 'Free' },
@@ -199,6 +222,14 @@ const WaiterDashboard = () => {
   }
 
   // Dashboard Screen
+  if (loadingTables) {
+  return <div className="text-center text-lg font-medium py-10">Cargando mesas...</div>;
+}
+
+if (error) {
+  return <div className="text-center text-red-600 font-medium py-10">{error}</div>;
+}
+
   return (
     <motion.div
       key="dashboard"

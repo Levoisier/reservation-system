@@ -18,10 +18,10 @@ const ReservationForm = () => {
     { id: 2, x: 280, y: 140, available: false },
     { id: 3, x: 440, y: 140, available: true },
     { id: 4, x: 600, y: 140, available: true },
-    { id: 5, x: 120, y: 240, available: true },
-    { id: 6, x: 280, y: 240, available: true },
-    { id: 7, x: 440, y: 240, available: false },
-    { id: 8, x: 600, y: 240, available: true },
+    { id: 5, x: 120, y: 225, available: true },
+    { id: 6, x: 280, y: 225, available: true },
+    { id: 7, x: 440, y: 225, available: false },
+    { id: 8, x: 600, y: 225, available: true },
   ];
 
   const timeSlots = [
@@ -253,7 +253,7 @@ const ReservationForm = () => {
           </motion.div>
         </motion.div>
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Reserve a Table</h1>
-        <p className="text-sm sm:text-base text-gray-600">Book your perfect dining experience</p>
+        <p className="text-sm sm:text-base text-gray-600">Reserve Your Table, Savor the Moment</p>
       </motion.div>
 
       {/* Form */}
@@ -397,7 +397,7 @@ const ReservationForm = () => {
           variants={slideInLeftVariants}
           className="mb-6 sm:mb-8"
         >
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">Restaurant Floor Plan</h3>
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">Restaurant Map</h3>
           <div className="bg-gray-50 rounded-xl p-3 sm:p-4 lg:p-6 overflow-x-auto">
             <svg
               viewBox="0 0 750 320"
@@ -415,8 +415,8 @@ const ReservationForm = () => {
               <text x="640" y="65" textAnchor="middle" className="text-sm font-semibold fill-purple-700">Bar</text>
               
               {/* Entrance */}
-              <rect x="320" y="280" width="110" height="30" fill="#e5e7eb" stroke="#9ca3af" strokeWidth="1" rx="5" />
-              <text x="375" y="300" textAnchor="middle" className="text-xs font-medium fill-gray-600">Entrance</text>
+              <rect x="320" y="280" width="110" height="30" fill="#75E4FF" stroke="#12719A" strokeWidth="1" rx="5" />
+              <text x="375" y="300" textAnchor="middle" className="text-xs font-medium fill-blue-600">Entrance</text>
               
               {/* Tables - Only animate on mount, not on state changes */}
               {tables.map((table, index) => (
