@@ -7,9 +7,9 @@ Por otro lado, permite al personal llevar el control de las mesas reservadas y d
 
 ## 🔧 Tecnologías Utilizadas
 
-- React  
-- Tailwind CSS  
-- Framer Motion  
+- React
+- Tailwind CSS
+- Framer Motion 
 - Fetch API (con datos JSON simulados)
 
 ## ⚙️ Cómo ejecutar el proyecto
@@ -54,8 +54,8 @@ Por otro lado, permite al personal llevar el control de las mesas reservadas y d
   | Carpeta/Archivo | Descripción |
   |-----------------|-------------|
   | **`components/`** | Contiene componentes reutilizables de UI |
-  | └── `ReservationForm.jsx` | Formulario principal donde los clientes seleccionan fecha, número de personas, mesa y confirman la reserva. Incluye animaciones y validación |
-  | └── `WaiterDashboard.jsx` | Componente de panel (probablemente para el personal) para gestionar o visualizar las reservas |
+  | └── `ReservationForm.jsx` | Formulario principal donde los clientes seleccionan fecha, número de personas, mesa y confirman la reserva. Incluye  animaciones y validación.
+  | └── `WaiterDashboard.jsx` | Componente de panel para gestionar o visualizar las reservas |
   | **`App.jsx`** | Componente raíz donde se define la estructura de la app. Normalmente envuelve a todos los demás componentes |
   | **`main.jsx`** | Punto de entrada de la app de React. Renderiza `<App />` en el DOM e inicializa la aplicación |
   | **`index.css`** | Estilos globales de la aplicación. Incluye directivas de Tailwind CSS |
